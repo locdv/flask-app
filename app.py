@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask_restful import  Api
 from flask_jwt import JWT
@@ -10,7 +11,10 @@ from db import db
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+database_url = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
+database_url = database_url.replace('postgres','postgresql')
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'loc'
 api = Api(app)
