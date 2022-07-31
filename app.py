@@ -17,9 +17,7 @@ api = Api(app)
 
 jwt = JWT(app, authenticate, identify)
 
-@app.before_first_request
-def create_table():
-    db.create_all()
+
 
 
 
@@ -92,5 +90,4 @@ api.add_resource(StoreList, '/stores')
 #             return jsonify({'items':store.items})
 #     return jsonify({'message':'store not found'})
 if __name__ == '__main__':
-    db.init_app(app)
     app.run(port=5001)
